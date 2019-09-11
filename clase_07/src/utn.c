@@ -125,31 +125,32 @@ int getString(	char *pResultado,
 	return retorno;
 }
 
-int imprimirArrayString(char aNombres[][QTY_CARACTERES], int cantidad)
+int imprimirArrayString(char array[][QTY_CARACTERES], int cantidad)
 {
 	int retorno;
 	int i = 0;
 
-	if(aNombres != NULL && cantidad > 0)
+	if(array != NULL && cantidad > 0)
 	{
 		retorno = 0;
 		for(i = 0;i<cantidad;i++)
 		{
-			printf("Nombre: %s\n", aNombres[i]);
+			printf("%s\n", array[i]);
 		}
 	}
 	return retorno;
 
 }
 
-int ordenarArrayString(char aNombres[][QTY_CARACTERES], int cantidad)
+int ordenarArrayString(char arrayNombres[][QTY_CARACTERES],char arrayDNI[][QTY_CARACTERES], int cantidad)
 {
 	int retorno = -1;
 	int i;
 	int flagSwap;
-	char auxiliar[QTY_CARACTERES];
+	char auxiliarNombre[QTY_CARACTERES];
+	char auxiliarDNI[QTY_CARACTERES];
 
-	if(aNombres != NULL && cantidad>0)
+	if(arrayNombres != NULL && cantidad>0)
 	{
 		retorno = 0;
 
@@ -160,12 +161,17 @@ int ordenarArrayString(char aNombres[][QTY_CARACTERES], int cantidad)
 		flagSwap = 0;
 		for(i=0;i<cantidad-1;i++)
 		{
-			if((strcmp(aNombres[i], aNombres[i+1])) > 0)
+			if((strcmp(arrayNombres[i], arrayNombres[i+1])) > 0)
 			{
 				flagSwap = 1;
-				strcpy(auxiliar, aNombres[i]);
-				strcpy(aNombres[i],aNombres[i+1]);
-				strcpy(aNombres[i+1], auxiliar);
+				strcpy(auxiliarNombre, arrayNombres[i]);
+				strcpy(arrayNombres[i],arrayNombres[i+1]);
+				strcpy(arrayNombres[i+1], auxiliarNombre);
+
+				strcpy(auxiliarDNI, arrayDNI[i]);
+				strcpy(arrayDNI[i],arrayDNI[i+1]);
+				strcpy(arrayDNI[i+1], auxiliarDNI);
+
 			}
 		}
 

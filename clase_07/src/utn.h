@@ -15,8 +15,8 @@ int esAlfanumerico(char array[]);
 
 int esTelefono(char array[]);
 
-int imprimirArrayString(char aNombres[][QTY_CARACTERES], int cantidad);
+int imprimirArrayString(char array[][QTY_CARACTERES], int cantidad);
 
-int ordenarArrayString(char aNombres[][QTY_CARACTERES], int cantidad);
+int ordenarArrayString(char arrayNombres[][QTY_CARACTERES],char arrayDNI[][QTY_CARACTERES], int cantidad);
 
 

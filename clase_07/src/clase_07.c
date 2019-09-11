@@ -20,7 +20,9 @@ int main(void) {
 
 
 	char aNombres[QTY_NOMBRES][QTY_CARACTERES];
-	char nombre[50];
+	char aDNI[QTY_NOMBRES][QTY_CARACTERES];
+	char nombre[QTY_CARACTERES];
+	char DNI[QTY_CARACTERES];
 	int i;
 
 
@@ -28,14 +30,31 @@ int main(void) {
 	{
 		getString(nombre,"Nombre?\n","Error",2,10,3);
 		strcpy(aNombres[i],nombre);
+		getString(DNI,"DNI?\n","Error",2,10,3);
+		strcpy(aDNI[i],DNI);
+
 	}
 
+	/*imprimirArrayString(aNombres,QTY_NOMBRES);
+	imprimirArrayString(aDNI,QTY_NOMBRES);
+
+
+
 	imprimirArrayString(aNombres,QTY_NOMBRES);
+	imprimirArrayString(aDNI,QTY_NOMBRES);*/
+	for(i=0;i<QTY_NOMBRES;i++)
+	{
+		printf("Nombre: %s DNI: %s\n", aNombres[i],aDNI[i]);
 
-	ordenarArrayString(aNombres,QTY_NOMBRES);
+	}
 
-	imprimirArrayString(aNombres,QTY_NOMBRES);
+	ordenarArrayString(aNombres,aDNI,QTY_NOMBRES);
 
+	for(i=0;i<QTY_NOMBRES;i++)
+	{
+		printf("Nombre: %s DNI: %s\n", aNombres[i],aDNI[i]);
+
+	}
 
 	return EXIT_SUCCESS;
 }
