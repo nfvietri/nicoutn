@@ -8,6 +8,9 @@
  ============================================================================
  */
 
+//PARA PROXIMA CLASE
+//hacer empleados.c y empleados.h, funciones para ordenar, incluir el struct, agregar DNI
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -28,7 +31,8 @@ struct sEmpleado
 };
 
 int imprimirArrayEmpleados(struct sEmpleado *aEmpleado, int cantidad);
-int ordenarArrayEmpleados(struct sEmpleado *aEmpleado, int cantidad);
+int ordenarArrayEmpleadosAsc(struct sEmpleado *aEmpleado, int cantidad);
+int ordenarArrayEmpleadosDes(struct sEmpleado *aEmpleado, int cantidad);
 
 
 int main(void)
@@ -54,7 +58,11 @@ int main(void)
 		aEmpleados[i] = bEmpleado;
 	}
 	imprimirArrayEmpleados(aEmpleados,3);
-	ordenarArrayEmpleados(aEmpleados,3);
+	printf("Orden ascendente\n");
+	ordenarArrayEmpleadosAsc(aEmpleados,3);
+	imprimirArrayEmpleados(aEmpleados,3);
+	printf("Orden descendente\n");
+	ordenarArrayEmpleadosDes(aEmpleados,3);
 	imprimirArrayEmpleados(aEmpleados,3);
 
 	return EXIT_SUCCESS;
@@ -74,7 +82,7 @@ int imprimirArrayEmpleados(struct sEmpleado *aEmpleado, int cantidad){
 	return retorno;
 }
 
-int ordenarArrayEmpleados(struct sEmpleado *aEmpleado, int cantidad)
+int ordenarArrayEmpleadosAsc(struct sEmpleado *aEmpleado, int cantidad)
 {
 	int retorno = -1;
 	int fSwap;
@@ -119,3 +127,45 @@ int ordenarArrayEmpleados(struct sEmpleado *aEmpleado, int cantidad)
 }
 
 
+int ordenarArrayEmpleadosDes(struct sEmpleado *aEmpleado, int cantidad)
+{
+	int retorno = -1;
+	int i;
+	int fSwap;
+	struct sEmpleado buffer;
+
+	if(aEmpleado != NULL && cantidad > 0)
+	{
+		retorno = 0;
+
+		do{
+			fSwap = 0;
+			for(i = 0; i<cantidad-1;i++)
+			{
+				if((strncmp(aEmpleado[i].nombre, aEmpleado[i+1].nombre, QTY_CARACTERES)) < 0)
+				{
+
+					fSwap = 1;
+					buffer = aEmpleado[i];
+					aEmpleado[i] = aEmpleado[i+1];
+					aEmpleado[i+1] = buffer;
+
+				} else if((strncmp(aEmpleado[i].nombre, aEmpleado[i+1].nombre, QTY_CARACTERES)) == 0)
+				{
+					if((strncmp(aEmpleado[i].apellido, aEmpleado[i+1].apellido, QTY_CARACTERES)) > 0)
+				{
+
+						fSwap = 1;
+						buffer = aEmpleado[i];
+						aEmpleado[i] = aEmpleado[i+1];
+						aEmpleado[i+1] = buffer;
+					}
+				}
+
+			}
+
+		}while(fSwap);
+
+	}
+	return retorno;
+}
