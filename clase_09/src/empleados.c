@@ -106,27 +106,23 @@ int altaEmpleadoPorId(struct sEmpleado *aArray, int cantidad,struct sEmpleado em
 
 	if(buscarLugarLibreEmpleado(aArray,QTY_EMPLEADOS) != -1)
 	{
-		index = buscarLugarLibreEmpleado(aArray,QTY_EMPLEADOS);
+		index = buscarLugarLibreEmpleado(aArray,cantidad);
 		aArray[index] = empleado;
-
+		empleado.status = STATUS_NOT_EMPTY;
 
 	}
 
 	return retorno;
 }
 
-
 int modificarEmpleadoPorId(struct sEmpleado *aArray, int cantidad,struct sEmpleado empleado)
 {
-	int retorno;
+	int retorno = -1;
 	int index;
 
 	if(aArray != NULL && cantidad > 0)
 	{
-		retorno = 0;
-		printf("Ingrese el id del empleado que desea modificar: \n");
-		scanf("%d", index);
-		aArray[index] = empleado;
+
 
 	}
 
@@ -134,6 +130,27 @@ int modificarEmpleadoPorId(struct sEmpleado *aArray, int cantidad,struct sEmplea
 	return retorno;
 }
 
+int bajaEmpleadoPorId(struct sEmpleado *aArray, int cantidad,int id)
+{
+	int retorno = -1;
+	int i;
+
+	if(aArray != NULL && cantidad > 0)
+	{
+		retorno = 0;
+		for(i=0; i<cantidad;i++)
+		{
+			if(aArray[i].idEmpleado == id)
+			{
+				aArray[i].status = STATUS_EMPTY;
+			}
+		}
+
+
+	}
+
+	return retorno;
+}
 
 int getString(	char *pResultado,
 				char *pMensaje,

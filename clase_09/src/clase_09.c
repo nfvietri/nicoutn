@@ -38,13 +38,15 @@ int main(void) {
 	case 1:	getString(bEmpleado.nombre,"Ingrese el nombre:","Error",2,10,3);
 			getString(bEmpleado.apellido,"Ingrese el apellido:","Error",2,10,3);
 			bEmpleado.idEmpleado = idEmpleado;
-			idEmpleado++;
 			bEmpleado.status = STATUS_NOT_EMPTY;
+			idEmpleado++;
 			altaEmpleadoPorId(aEmpleados,QTY_EMPLEADOS,bEmpleado);
 			printf("Alta exitoso!\n");
 			break;
 
-	case 2:
+	case 3: bajaEmpleadoPorId(aEmpleados,QTY_EMPLEADOS,1);
+			printf("Baja exitosa!");
+
 	}
 
 	imprimirArrayEmpleados(aEmpleados,QTY_EMPLEADOS);
