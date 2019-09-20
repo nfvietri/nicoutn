@@ -68,8 +68,8 @@ int altaPantallaPorId(struct sPantalla *aArray, int cantidad,struct sPantalla pa
 	{
 		index = buscarLugarLibrePantalla(aArray,cantidad);
 		aArray[index] = pantalla;
-		pantalla.status = STATUS_NOT_EMPTY;
-		pantalla.idPantalla = generarId();
+		aArray[index].status = STATUS_NOT_EMPTY;
+		aArray[index].idPantalla = generarId();
 
 	}
 

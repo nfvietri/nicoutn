@@ -37,7 +37,11 @@ int main(void) {
 				altaPantallaPorId(aPantallas,QTY_PANTALLAS,bPantalla);
 				break;
 
-		case 3: getInt(&resultado,"Ingresa el ID de la pantalla que desea eliminar:\n","Error",0,100,3);
+		case 3: getString(&resultado,"Ingresa el ID:\n","Error",2,10,3);
+				if(buscarPantallaPorId(aPantallas,QTY_PANTALLAS,resultado))
+				{
+					printf("Pantalla seleccionada: %s", aPantallas[resultado].nombre);
+				}
 
 
 		}
