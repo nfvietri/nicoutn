@@ -35,6 +35,8 @@ int buscarPantallaPorId(struct sPantalla *aArray, int cantidad,int id);
 
 int bajaPantallaPorId(struct sPantalla *aArray, int cantidad,int id);
 
+int modificarEmpleadoPorId(struct sEmpleado *aArray, int cantidad,struct sEmpleado empleado);
+
 int getInt(	int *resultado,
 			char *mensaje,
 			char *mensajeError,

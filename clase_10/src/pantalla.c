@@ -1,6 +1,5 @@
 #include <stdlib.h>
 #include <stdio.h>
-#include <stdio_ext.h>
 #include "pantalla.h"
 #include <string.h>
 
@@ -95,7 +94,7 @@ int getString(	char *pResultado,
 		do
 			{
 				printf("%s",pMensaje);
-				__fpurge(stdin);
+				fflush(stdin);
 				fgets(buffer,sizeof(buffer),stdin);
 				buffer[strlen(buffer)-1] = '\0';
 				if(strlen(buffer)>=minimo && strlen(buffer) <= maximo)
@@ -138,6 +137,27 @@ int buscarPantallaPorId(struct sPantalla *aArray, int cantidad,int id)
 	return retorno;
 }
 
+int modificarPantallaPorId(struct sPantalla *aArray, int cantidad,struct sPantalla pantalla)
+{
+	int retorno;
+	int i;
+
+	for(i=0;i<cantidad;i++)
+	{
+		if(aArray[i].idPantalla == pantalla.idPantalla)
+		{
+			strcpy(aArray[i].nombre, pantalla.nombre);
+			break;
+		}
+	}
+
+
+
+
+
+
+	return retorno;
+}
 
 int bajaPantallaPorId(struct sPantalla *aArray, int cantidad,int id)
 {
@@ -185,7 +205,7 @@ int getInt(	int *resultado,
 		do
 		{
 			printf("%s",mensaje);
-			__fpurge(stdin); // fflush
+			fflush(stdin); // fflush
 			if(scanf("%d",&buffer)==1)
 			{
 				if(buffer >= minimo && buffer <= maximo)
@@ -205,7 +225,7 @@ int getInt(	int *resultado,
 
 static int generarId(void)
 {
-	static int id = 0;
+	static int id = -1;
 	id++;
 	return id;
 }
