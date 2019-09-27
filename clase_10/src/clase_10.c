@@ -15,7 +15,6 @@
 
 int main(void) {
 
-	setvbuf(stdout, NULL, _IONBF, 0);
 
 	struct sPantalla aPantallas[QTY_PANTALLAS];
 	struct sPantalla bPantalla;

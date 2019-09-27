@@ -1,6 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
-#include "pantalla.h"
+#include "pant.h"
 #include <string.h>
 
 int initLugarLibrePantalla(struct sPantalla *aArray, int cantidad){
@@ -137,6 +137,7 @@ int buscarPantallaPorId(struct sPantalla *aArray, int cantidad,int id)
 	return retorno;
 }
 
+
 int modificarPantallaPorId(struct sPantalla *aArray, int cantidad,struct sPantalla pantalla)
 {
 	int retorno;
@@ -152,9 +153,9 @@ int modificarPantallaPorId(struct sPantalla *aArray, int cantidad,struct sPantal
 		}
 	}
 
-
 	return retorno;
 }
+
 
 int bajaPantallaPorId(struct sPantalla *aArray, int cantidad,int id)
 {
