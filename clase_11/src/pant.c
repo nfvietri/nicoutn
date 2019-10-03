@@ -1,7 +1,17 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "pant.h"
+#include "utn.h"
 #include <string.h>
+#include "publicidad.h"
+
+static int generarId(void)
+{
+	static int id = -1;
+	id++;
+	return id;
+}
+
 
 int initLugarLibrePantalla(struct sPantalla *aArray, int cantidad){
 	int retorno = -1;
@@ -28,11 +38,27 @@ int imprimirArrayPantallas(struct sPantalla *aPantalla, int cantidad){
 		retorno = 0;
 		for(i=0;i<cantidad;i++)
 		{
-			printf("Status: %d - Id: %d - Nombre: %s \n",aPantalla[i].status, aPantalla[i].idPantalla,aPantalla[i].nombre);
+			if(aPantalla[i].status != 0)
+			{
+				printf("Status: %d "
+								"// Id: %d "
+								"// Nombre: %s "
+								"// Direccion: %s"
+								"// Precio: %f"
+								"// Tipo: %d\n"
+								,aPantalla[i].status,
+								aPantalla[i].idPantalla,
+								aPantalla[i].nombre,
+								aPantalla[i].direccion,
+								aPantalla[i].precio,
+								aPantalla[i].tipo);
+			}
+
 		}
 	}
 	return retorno;
 }
+
 
 
 int buscarLugarLibrePantalla(struct sPantalla *aArray, int cantidad)
@@ -69,47 +95,13 @@ int altaPantallaPorId(struct sPantalla *aArray, int cantidad,struct sPantalla pa
 		aArray[index] = pantalla;
 		aArray[index].status = STATUS_NOT_EMPTY;
 		aArray[index].idPantalla = generarId();
-
+		retorno = 0;
 	}
 
 	return retorno;
 }
 
 
-int getString(	char *pResultado,
-				char *pMensaje,
-				char *pMensajeError,
-				int minimo,
-				int maximo,
-				int reintentos)
-{
-	int retorno = -1;
-	char buffer[4096];
-	if(	pResultado != NULL &&
-		pMensaje != NULL &&
-		pMensajeError != NULL &&
-		minimo <= maximo &&
-		reintentos >= 0)
-	{
-		do
-			{
-				printf("%s",pMensaje);
-				__fpurge(stdin);
-				fgets(buffer,sizeof(buffer),stdin);
-				buffer[strlen(buffer)-1] = '\0';
-				if(strlen(buffer)>=minimo && strlen(buffer) <= maximo)
-				{
-					strncpy(pResultado,buffer,maximo+1);
-					retorno = 0;
-					break;
-				}
-				printf("%s",pMensajeError);
-				reintentos--;
-			}while(reintentos >= 0);
-	}
-	return retorno;
-
-}
 
 
 int buscarPantallaPorId(struct sPantalla *aArray, int cantidad,int id)
@@ -185,45 +177,4 @@ int bajaPantallaPorId(struct sPantalla *aArray, int cantidad,int id)
 }
 
 
-int getInt(	int *resultado,
-			char *mensaje,
-			char *mensajeError,
-			int minimo,
-			int maximo,
-			int reintentos)
-{
-	int retorno = -1;
-	int buffer;
-	if(	resultado != NULL &&
-		mensaje	!= NULL &&
-		mensajeError != NULL &&
-		minimo < maximo &&
-		reintentos >= 0)
-	{
-		do
-		{
-			printf("%s",mensaje);
-			__fpurge(stdin); // fflush
-			if(scanf("%d",&buffer)==1)
-			{
-				if(buffer >= minimo && buffer <= maximo)
-				{
-					retorno = 0;
-					*resultado = buffer;
-					break;
-				}
-			}
-			printf("%s",mensajeError);
-			reintentos--;
-		}while(reintentos >= 0);
-	}
-	return retorno;
-}
 
-
-static int generarId(void)
-{
-	static int id = -1;
-	id++;
-	return id;
-}

@@ -1,3 +1,7 @@
+#ifndef PANTALLA_H_
+#define PANTALLA_H_
+
+
 #define QTY_PANTALLAS 100
 #define QTY_CONTRATACIONES 1000
 #define STATUS_EMPTY 0
@@ -8,7 +12,7 @@ struct sPantalla{
 	int idPantalla;
 	int status;
 
-	char tipo;
+	int tipo;
 	char nombre[50];
 	char direccion[50];
 	float precio;
@@ -23,12 +27,6 @@ int imprimirArrayPantallas(struct sPantalla *aPantalla, int cantidad);
 
 int buscarLugarLibrePantalla(struct sPantalla *aArray, int cantidad);
 
-int getString(	char *pResultado,
-				char *pMensaje,
-				char *pMensajeError,
-				int minimo,
-				int maximo,
-				int reintentos);
 
 int altaPantallaPorId(struct sPantalla *aArray, int cantidad,struct sPantalla pantalla);
 
@@ -38,11 +36,6 @@ int bajaPantallaPorId(struct sPantalla *aArray, int cantidad,int id);
 
 int modificarPantallaPorId(struct sPantalla *aArray, int cantidad,struct sPantalla pantalla);
 
-int getInt(	int *resultado,
-			char *mensaje,
-			char *mensajeError,
-			int minimo,
-			int maximo,
-			int reintentos);
 
-static int generarId(void);
+
+#endif /* PANTALLA_H_ */

@@ -12,6 +12,7 @@
 #include <stdlib.h>
 #include "pant.h"
 #include "publicidad.h"
+#include "utn.h"
 
 int main(void) {
 
@@ -24,12 +25,11 @@ int main(void) {
 	int idAux;
 	int opcion;
 	int respuesta;
+	char clienteMasAlto;
+
 
 	initLugarLibrePantalla(aPantallas,QTY_PANTALLAS);
 	initLugarLibrePublicidad(aPublicidad,QTY_PUBLICIDAD);
-
-
-
 
 
 	do{
@@ -39,7 +39,13 @@ int main(void) {
 				"2-Modificar pantalla\n"
 				"3-Baja pantalla\n"
 				"4-Alta publicidad\n"
-				"10-Salir\n");
+				"5-Modificar condiciones publicación\n"
+				"6-Cancelar contratación\n"
+				"7-Consulta facturación\n"
+				"8-Listar contrataciones\n"
+				"9-Imprimir\n"
+				"10-Informes\n"
+				"20-Salir\n");
 
 		scanf("%d",&opcion);
 
@@ -47,21 +53,29 @@ int main(void) {
 		switch(opcion)
 		{
 			case 1: getString(bPantalla.nombre,"Nombre de la pantalla?\n","Error",2,20,3);
+					getString(bPantalla.direccion,"direccion de la pantalla?\n","Error",2,20,3);
+					getFloat(&bPantalla.precio, "Precio?\n", "Error", 0, 2000000, 3);
+					getInt(&bPantalla.tipo, "Tipo de pantalla? 1-LED 2-LCD\n", "Error", 0, 3, 3);
 					altaPantallaPorId(aPantallas,QTY_PANTALLAS,bPantalla);
 					printf("Alta exitosa!\n");
 					break;
 
-			case 2: getInt(&idAux,"Ingrese el ID de la pantalla a modificar:\n","Error",0,101,3);
+			case 2: imprimirArrayPantallas(aPantallas,5);
+					getInt(&idAux,"Ingrese el ID de la pantalla a modificar:\n","Error",0,101,3);
 					buscarPantallaPorId(aPantallas,QTY_PANTALLAS,idAux);
 					printf("Pantalla encontrada: %d - %s\n",aPantallas[idAux].idPantalla, aPantallas[idAux].nombre);
 					getString(bPantalla.nombre,"Ingresa el nuevo nombre: \n","Error",0,101,3);
+					getString(bPantalla.direccion,"direccion nueva\n","Error",2,20,3);
+					getFloat(&bPantalla.precio, "Precio nuevo?\n", "Error", 0, 2000000, 3);
+					getInt(&bPantalla.tipo, "Tipo de pantalla? 1-LED 2-LCD\n", "Error", 0, 3, 3);
 					bPantalla.idPantalla = aPantallas[idAux].idPantalla;
 					modificarPantallaPorId(aPantallas,QTY_PANTALLAS,bPantalla);
 					printf("Pantalla modificada!\n");
 					break;
 
 
-			case 3: getInt(&idAux,"Ingrese el ID de la pantalla a eliminar:\n","Error",0,101,3);
+			case 3: imprimirArrayPantallas(aPantallas,5);
+					getInt(&idAux,"Ingrese el ID de la pantalla a eliminar:\n","Error",0,101,3);
 					buscarPantallaPorId(aPantallas,QTY_PANTALLAS,idAux);
 					printf("Pantalla encontrada: %d - %s\n",aPantallas[idAux].idPantalla, aPantallas[idAux].nombre);
 					getInt(&respuesta,"Desea eliminar?\n 1-si\n2-no\n","Error",0,100,3);
@@ -72,18 +86,56 @@ int main(void) {
 					}
 					break;
 
-			case 4: imprimirArrayPantallas(aPantallas,10);
-					getInt(&bPublicidad.idPantalla,"Ingrese el ID de la pantalla:\n","Error",0,100,3);
-					getString(bPublicidad.cuit,"Ingrese el cuit de la publicidad:\n","Error",0,1000,3);
-					getString(bPublicidad.nombreArchivo,"Ingrese el nombre del archivo: \n","Error",0,1000,3);
+			case 4: imprimirArrayPantallas(aPantallas,5);
+					getInt(&idAux,"Ingrese el ID de la pantalla donde va a publicar:\n","Error",0,101,3);
+					buscarPantallaPorId(aPantallas, 5, idAux);
+					printf("Pantalla encontrada: %d - %s\n",aPantallas[idAux].idPantalla, aPantallas[idAux].nombre);
+					getString(bPublicidad.cuit,"Ingrese el cuit: \n","Error",0,50,3);
+					getInt(&bPublicidad.cantidadDias,"Ingrese cantidad de días: \n","Error",0,50,3);
+					getString(bPublicidad.nombreArchivo,"Ingrese el nombre del archivo: \n","Error",0,50,3);
+					bPublicidad.idPantalla = idAux;
 					altaPublicidadPorId(aPublicidad,QTY_PUBLICIDAD,bPublicidad);
+					printf("Alta exitosa!\n");
+					break;
+
+			case 5:	getString(bPublicidad.cuit, "ingresa el cuit:\n", "Error", 2, 15, 3);
+					listarPantallasPorCuit(aPublicidad, aPantallas, 10, bPublicidad.cuit);
+					idAux = getInt(&bPublicidad.idPantalla, "Ingrese el id que desea modificar:\n","Error",0,100,3);
+					getInt(&bPublicidad.cantidadDias,"Ingrese la nueva cantidad de dias:\n","Error",0,100,3);
+					aPublicidad[idAux].cantidadDias = bPublicidad.cantidadDias;
+					printf("Cantidad de días modificado!\n");
+					break;
+
+			case 6:	getString(bPublicidad.cuit, "ingresa el cuit:\n", "Error", 2, 15, 3);
+					listarPantallasPorCuit(aPublicidad, aPantallas, 10, bPublicidad.cuit);
+					idAux = getInt(&bPublicidad.idPantalla, "Ingrese el id que desea dar de baja:\n","Error",0,100,3);
+					aPublicidad[idAux].status = 0;
+					printf("Baja exitosa!");
+					break;
+
+			case 7: getString(bPublicidad.cuit, "ingresa el cuit:\n", "Error", 2, 15, 3);
+					listarPantallasPorCuit(aPublicidad, aPantallas, 10, bPublicidad.cuit);
+					break;
+
+			case 8: listarContrataciones(aPublicidad,10,aPantallas);
+					break;
+
+			case 9: imprimirArrayPantallas(aPantallas,5);
+					printf("array publicidad\n");
+					imprimirArrayPublicidad(aPublicidad,5);
+					break;
+
+			case 10: importeMasAltoFact(bPublicidad.cuit, aPublicidad, 10, aPantallas);
+					printf("El cliente con el importe mas alto es %s", bPublicidad.cuit);
+
 
 			}
 
+
 		}while(opcion != 10);
 
-	imprimirArrayPantallas(aPantallas,5);
-	imprimirArrayPublicidad(aPublicidad,5);
+
+
 
 	return EXIT_SUCCESS;
 }
