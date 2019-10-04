@@ -36,6 +36,10 @@ int listarContrataciones(struct sPublicidad *aPublicidad, int cantidad, struct s
 
 int importeMasAltoFact(char *cuitMasAlto, struct sPublicidad *aPublicidad, int cantidad, struct sPantalla *aPantalla);
 
+int idImporteMasAltoFact(struct sPantalla *aPantallas, int cantidad);
+
+int imprimirPublicidadPorIdPantalla(struct sPublicidad *aPublicidad, int cantidad, int id);
+
 int getString(	char *pResultado,
 				char *pMensaje,
 				char *pMensajeError,

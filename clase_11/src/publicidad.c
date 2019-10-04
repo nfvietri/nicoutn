@@ -46,7 +46,7 @@ int imprimirArrayPublicidad(struct sPublicidad *aPublicidad, int cantidad){
 				printf("Status: %d "
 								"// IdPublicidad: %d "
 								"// Cuit: %s"
-								"// Cantidad de días: %d"
+								"// Cantidad de dï¿½as: %d"
 								"// Nombre del Archivo: %s"
 								"// IdPantalla: %d"
 								"\n",aPublicidad[i].status,
@@ -151,7 +151,7 @@ int listarContrataciones(struct sPublicidad *aPublicidad, int cantidad, struct s
 		{
 			retorno = 0;
 			index = aPublicidad[i].idPantalla;
-			printf("Nombre pantalla: %s // Nombre del video: %s // Cantidad de días: %d // Cuit cliente: %s\n",
+			printf("Nombre pantalla: %s // Nombre del video: %s // Cantidad de dï¿½as: %d // Cuit cliente: %s\n",
 					aPantalla[index].nombre,
 					aPublicidad[i].nombreArchivo,
 					aPublicidad[i].cantidadDias,
@@ -165,26 +165,51 @@ int listarContrataciones(struct sPublicidad *aPublicidad, int cantidad, struct s
 }
 
 
-int importeMasAltoFact(char *cuitMasAlto, struct sPublicidad *aPublicidad, int cantidad, struct sPantalla *aPantalla)
+int idImporteMasAltoFact(struct sPantalla *aPantallas, int cantidad)
 {
-	int retorno = -1;
+	int idMaximo;
 	int i;
-	int index;
+	float maximo = 0;
 
 
 	for(i=0;i<cantidad;i++)
 	{
-		index = aPublicidad[i].idPantalla;
-		if(aPantalla[index].precio > aPantalla[index+1].precio)
+		if(i == 0)
 		{
+			maximo = aPantallas[i].precio;
+			idMaximo = aPantallas[i].idPantalla;
 
-			cuitMasAlto = aPublicidad[index].cuit;
+		} else {
+			if(aPantallas[i].precio > maximo)
+			{
+				maximo = aPantallas[i].precio;
+				idMaximo = aPantallas[i].idPantalla;
+			}
+		}
 
+	}
+
+	return idMaximo;
+}
+
+int imprimirPublicidadPorIdPantalla(struct sPublicidad *aPublicidad, int cantidad, int id)
+{
+	int retorno = -1;
+	int i;
+
+	for(i=0;i<cantidad;i++)
+	{
+		if(aPublicidad[i].idPantalla == id)
+		{
+			retorno = 0;
+			printf("Cliente con importe mÃ¡s alto:\n"
+					"Cuit: %s\n", aPublicidad[i].cuit);
 		}
 	}
 
 
 
-
 	return retorno;
 }
+
+

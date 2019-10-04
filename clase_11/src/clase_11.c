@@ -13,10 +13,11 @@
 #include "pant.h"
 #include "publicidad.h"
 #include "utn.h"
+#include <string.h>
 
 int main(void) {
 
-	setvbuf(stdout, NULL, _IONBF, 0);
+
 
 	struct sPantalla aPantallas[QTY_PANTALLAS];
 	struct sPantalla bPantalla;
@@ -25,12 +26,10 @@ int main(void) {
 	int idAux;
 	int opcion;
 	int respuesta;
-	char clienteMasAlto;
-
+	int prueba;
 
 	initLugarLibrePantalla(aPantallas,QTY_PANTALLAS);
 	initLugarLibrePublicidad(aPublicidad,QTY_PUBLICIDAD);
-
 
 	do{
 		printf("------------BIENVENIDO-----------\n"
@@ -39,9 +38,9 @@ int main(void) {
 				"2-Modificar pantalla\n"
 				"3-Baja pantalla\n"
 				"4-Alta publicidad\n"
-				"5-Modificar condiciones publicación\n"
-				"6-Cancelar contratación\n"
-				"7-Consulta facturación\n"
+				"5-Modificar condiciones publicaciï¿½n\n"
+				"6-Cancelar contrataciï¿½n\n"
+				"7-Consulta facturaciï¿½n\n"
 				"8-Listar contrataciones\n"
 				"9-Imprimir\n"
 				"10-Informes\n"
@@ -91,7 +90,7 @@ int main(void) {
 					buscarPantallaPorId(aPantallas, 5, idAux);
 					printf("Pantalla encontrada: %d - %s\n",aPantallas[idAux].idPantalla, aPantallas[idAux].nombre);
 					getString(bPublicidad.cuit,"Ingrese el cuit: \n","Error",0,50,3);
-					getInt(&bPublicidad.cantidadDias,"Ingrese cantidad de días: \n","Error",0,50,3);
+					getInt(&bPublicidad.cantidadDias,"Ingrese cantidad de dï¿½as: \n","Error",0,50,3);
 					getString(bPublicidad.nombreArchivo,"Ingrese el nombre del archivo: \n","Error",0,50,3);
 					bPublicidad.idPantalla = idAux;
 					altaPublicidadPorId(aPublicidad,QTY_PUBLICIDAD,bPublicidad);
@@ -103,7 +102,7 @@ int main(void) {
 					idAux = getInt(&bPublicidad.idPantalla, "Ingrese el id que desea modificar:\n","Error",0,100,3);
 					getInt(&bPublicidad.cantidadDias,"Ingrese la nueva cantidad de dias:\n","Error",0,100,3);
 					aPublicidad[idAux].cantidadDias = bPublicidad.cantidadDias;
-					printf("Cantidad de días modificado!\n");
+					printf("Cantidad de dï¿½as modificado!\n");
 					break;
 
 			case 6:	getString(bPublicidad.cuit, "ingresa el cuit:\n", "Error", 2, 15, 3);
@@ -125,17 +124,18 @@ int main(void) {
 					imprimirArrayPublicidad(aPublicidad,5);
 					break;
 
-			case 10: importeMasAltoFact(bPublicidad.cuit, aPublicidad, 10, aPantallas);
-					printf("El cliente con el importe mas alto es %s", bPublicidad.cuit);
-
+			case 10: idAux = idImporteMasAltoFact(aPantallas,10);
+					 imprimirPublicidadPorIdPantalla(aPublicidad, 10, idAux);
 
 			}
 
 
-		}while(opcion != 10);
+		}while(opcion != 20);
 
 
 
 
 	return EXIT_SUCCESS;
 }
+
+
