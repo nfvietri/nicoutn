@@ -39,6 +39,17 @@ int ped_setCantidadKilos(Pedido* this, int cantidadKilos)
 	return retorno;
 }
 
+int ped_getCantidadKilos(Pedido* this, int *cantidadKilos)
+{
+	int retorno = -1;
+
+
+
+	return retorno;
+}
+
+
+
 static int isValidCantidadKilos(int *cantidadKilos)
 {
 	return 1;
