@@ -16,8 +16,7 @@ void delete_Cliente(Cliente* this)
 
 Cliente* new_ClienteParametros(int idCliente, int status, char nombre, char direccion, char cuit, char localidad)
 {
-	int retorno = -1;
-
+	Cliente* retorno = NULL;
 	Cliente* this;
 	this = new_Cliente();
 
@@ -28,7 +27,9 @@ Cliente* new_ClienteParametros(int idCliente, int status, char nombre, char dire
 		   cli_setCuit(this,cuit) == 0 &&
 		   cli_setLocalidad(this,localidad) == 0)
 		{
-			retorno = 0;
+			retorno = this;
+		} else {
+			delete_Cliente(this);
 		}
 	}
 
